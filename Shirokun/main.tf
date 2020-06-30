@@ -17,9 +17,6 @@ resource "aws_instance" "example" {
   tags {
     Name = "terraform-exam"
   }
-
-    user_data = file("ohmy.sh")
-
 	key_name = "terraform-key"
 
 provisioner "remote-exec" {
@@ -28,7 +25,8 @@ provisioner "remote-exec" {
 		"sudo yum -y install nginx",
 		"sudo systemctl start nginx",
 		"sudo apt-get install apache2 graphite-web",
-		"sudo dpkg -l | grep graphite"
+		"sudo dpkg -l | grep graphite",
+		"sudo yum install ansible"
 		]
 	}
 }
