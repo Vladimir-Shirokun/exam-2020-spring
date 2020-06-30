@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "{“health”: “ok”}" | sudo tee /etc/nginx/index.html
+echo "server { listen 8081; location /health { index /etc/nginx/index.html; } }" | sudo tee /etc/nginx/nginx.conf
+echo "package { "nginx": \
+        ensure => present, \
+        } \
+        service { "nginx": \
+            ensure => "running", \
+            enable => true, \
+            require => Package["nginx"], \
+        } \
+        " | sudo tee manifest.pp
+sudo apt-get update
+sudo yum install ansible
+sudo ansible apply manifest.pp

@@ -1,4 +1,6 @@
 provider "aws" {
+	access_key = "AKIARFK73JNHAHPA2BUT"
+	secret_key = "764tdY1vrzO0kYUz8ji0/owZqkzhVR/y5eRszMgK"
 	region = "eu-west-1"
 }
 
@@ -16,6 +18,8 @@ resource "aws_instance" "example" {
     Name = "terraform-exam"
   }
 
+    user_data = file("ohmy.sh")
+
 	key_name = "terraform-key"
 
 provisioner "remote-exec" {
@@ -23,7 +27,7 @@ provisioner "remote-exec" {
 		"sudo amazon-linux-extras enable nginx1.12",
 		"sudo yum -y install nginx",
 		"sudo systemctl start nginx",
-		" sudo apt-get install apache2 graphite-web",
+		"sudo apt-get install apache2 graphite-web",
 		"sudo dpkg -l | grep graphite"
 		]
 	}
